@@ -14,6 +14,7 @@ def index_range(page: int, page_size: int) -> Tuple[int, int]:
     """
     return ((page - 1) * page_size, page * page_size)
 
+
 class Server:
     """Server class to paginate a database of popular baby names.
     """
@@ -29,9 +30,7 @@ class Server:
             with open(self.DATA_FILE) as f:
                 reader = csv.reader(f)
                 dataset = [row for row in reader]
-                print(dataset)
             self.__dataset = dataset[1:]
-            print(self.__dataset)
 
         return self.__dataset
 
