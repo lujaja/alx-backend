@@ -3,7 +3,6 @@
 LFU caching
 """
 from collections import OrderedDict
-
 BaseCaching = __import__('base_caching').BaseCaching
 
 
@@ -31,7 +30,6 @@ class LFUCache(BaseCaching):
             self.access_order.move_to_end(key)
         else:
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                # Find the least frequently used key(s)
                 min_freq = min(self.usage_frequency.values())
                 lfu_keys = [
                     k for k,
