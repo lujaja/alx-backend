@@ -17,6 +17,7 @@ users = {
 
 
 class Config:
+    """ Config class """
     LANGUAGES = ['en', 'fr']
     BABEL_DEFAULT_LOCALE = 'en'
     BABEL_DEFAULT_TIMEZONE = 'UTC'
@@ -30,6 +31,7 @@ babel = Babel(app)
 
 
 def get_user(login_as):
+    """Get user"""
     if login_as is None or int(login_as) not in users.keys():
         return None
     return users.get(int(login_as))
@@ -37,6 +39,7 @@ def get_user(login_as):
 
 @app.before_request
 def before_request():
+    """Before request"""
     id = request.args.get('login_as')
     user = get_user(id)
     if user:
@@ -47,6 +50,7 @@ def before_request():
 
 @babel.localeselector
 def get_locale():
+    """"Get locale"""
     locale = request.args.get('locale')
     if locale and locale in app.config['BABEL_SUPPORTED_LOCALES']:
         return locale
@@ -64,6 +68,7 @@ def get_locale():
 
 @babel.timezoneselector
 def get_timezone():
+    """Get timezone"""
     timezone = request.args.get('timezone')
     if timezone:
         try:
@@ -80,6 +85,7 @@ def get_timezone():
 
 @app.route('/', methods=['GET'], strict_slashes=False)
 def index():
+    """Index"""
     user_timezone = get_timezone()
     current_time = datetime.now(pytz.timezone(user_timezone)).strftime('%c')
 
@@ -92,4 +98,5 @@ def index():
 
 
 if __name__ == '__main__':
+    """Main Function"""
     app.run(host='0.0.0.0', port=5000, debug=True)

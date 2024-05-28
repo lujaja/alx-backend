@@ -15,6 +15,7 @@ users = {
 
 
 class Config:
+    """Config class"""
     LANGUAGES = ['en', 'fr']
     BABEL_DEFAULT_LOCALE = 'en'
     BABEL_DEFAULT_TIMEZONE = 'UTC'
@@ -28,6 +29,7 @@ babel = Babel(app)
 
 
 def get_user(login_as):
+    """Get user"""
     if login_as is None or int(login_as) not in users.keys():
         return None
     return users.get(int(login_as))
@@ -35,6 +37,7 @@ def get_user(login_as):
 
 @app.before_request
 def before_request():
+    """"Before request"""
     id = request.args.get('login_as')
     user = get_user(id)
     if user is not None:
